@@ -73,7 +73,7 @@
       ];
 
       trusted-users = [
-        "javacafe"
+        "gokulswam"
       ];
     };
   };
@@ -117,12 +117,12 @@
     mutableUsers = true;
     defaultUserShell = pkgs.zsh;
 
-    users.javacafe = {
-      description = "javacafe";
+    users.gokulswam = {
+      description = "gokulswam";
       isNormalUser = true;
-      home = "/home/javacafe";
+      home = "/home/gokulswam";
 
-      extraGroups = ["wheel" "networkmanager" "sudo" "video" "audio"];
+      extraGroups = ["wheel" "networkmanager" "sudo" "video" "audio" "libvirtd"];
     };
   };
 }

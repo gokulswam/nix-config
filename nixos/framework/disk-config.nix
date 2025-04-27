@@ -8,7 +8,7 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "512M";
+              size = "500M";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -18,19 +18,11 @@
               };
             };
             root = {
-              end = "-128G";
+              size = "100$";
               content = {
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
-              };
-            };
-            plainSwap = {
-              size = "100%";
-              content = {
-                type = "swap";
-                discardPolicy = "both";
-                resumeDevice = true;
               };
             };
           };

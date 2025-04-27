@@ -22,7 +22,7 @@
     ../shared/programs/nixcord.nix
     ../shared/programs/nixvim.nix
     ../shared/programs/starship.nix
-    ../shared/programs/vivaldi
+    ../shared/programs/vivaldi.nix
     ../shared/programs/vscode.nix
     ../shared/programs/zsh.nix
   ];
@@ -87,12 +87,13 @@
         deadnix
         fractal
         gnome-boxes
-        moonlight
+        moonlight-qt
         nh
         spot
         statix
         trash-cli
         xdg-user-dirs
+        zoom
         ;
 
       inherit

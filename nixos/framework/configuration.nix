@@ -8,7 +8,9 @@
   imports = [
     inputs.determinate.nixosModules.default
     inputs.disko.nixosModules.disko
+    inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    inputs.nixvirt.nixosModules.default
 
     ../shared/configuration.nix
     ../shared/desktops/gnome.nix
@@ -82,6 +84,9 @@
     };
   };
 
+  programs.virt-manager.enable = true;
+  services.spice-vdagentd.enable = true;
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
   time.hardwareClockInLocalTime = true;
@@ -92,15 +97,14 @@
       enable = true;
 
       qemu = {
-        ovmf = {
-          enable = true;
-          packages = [pkgs.OVMFFull.fd];
-        };
-
         swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [pkgs.OVMFFull.fd];
       };
     };
 
     spiceUSBRedirection.enable = true;
   };
+
+  zramSwap.enable = true;
 }

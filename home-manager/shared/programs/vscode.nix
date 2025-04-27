@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -29,7 +30,7 @@ in {
         ]
         ++ marketplace-extensions;
 
-      userSettings = {
+      userSettings = with config.stylix.fonts; {
         Lua.misc.executablePath = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server";
 
         "[c]".editor.defaultFormatter = "xaver.clang-format";

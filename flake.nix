@@ -70,7 +70,7 @@
             home-manager = {
               backupFileExtension = "hm-back";
               extraSpecialArgs = {inherit inputs outputs;};
-              users.gokulswam.imports = [(./. + "/home-manager/javacafe@nixos-wsl/home.nix")];
+              users.gokulswam.imports = [(./. + "/home-manager/gokulswam@nixos-wsl/home.nix")];
             };
           }
         ];
@@ -109,6 +109,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak = {
+      type = "github";
+      owner = "gmodena";
+      repo = "nix-flatpak";
+    };
+
     nix-index-database = {
       type = "github";
       owner = "nix-community";
@@ -120,6 +126,12 @@
       type = "github";
       owner = "nix-community";
       repo = "nix-vscode-extensions";
+    };
+
+    nixos-hardware = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixos-hardware";
     };
 
     nixcord = {
@@ -144,6 +156,11 @@
       type = "github";
       owner = "nix-community";
       repo = "NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixvirt = {
+      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
