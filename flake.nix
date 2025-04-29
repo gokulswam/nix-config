@@ -1,5 +1,5 @@
 {
-  description = "javacafe's nix config";
+  description = "gokulswam's nix config";
 
   outputs = {
     self,
@@ -107,12 +107,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak = {
-      type = "github";
-      owner = "gmodena";
-      repo = "nix-flatpak";
-    };
-
     nix-index-database = {
       type = "github";
       owner = "nix-community";
@@ -154,11 +148,6 @@
       type = "github";
       owner = "nix-community";
       repo = "NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixvirt = {
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
