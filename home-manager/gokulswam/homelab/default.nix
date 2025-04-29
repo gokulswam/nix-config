@@ -1,12 +1,4 @@
-{
-  config,
-  inputs,
-  outputs,
-  lib,
-  pkgs,
-  nhModules,
-  ...
-}: {
+_: {
   programs.home-manager.enable = false;
 
   # Nicely reload system units when changing configs
