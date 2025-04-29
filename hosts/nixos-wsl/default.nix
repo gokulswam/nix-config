@@ -7,12 +7,13 @@
   imports = [
     inputs.determinate.nixosModules.default
 
-    "${nixosModules}/common"
-    "${nixosModules}/misc/wsl"
-    "${nixosModules}/services/vscode-server"
+    "${nixosModules}/common.nix"
+    "${nixosModules}/misc/wsl.nix"
+    "${nixosModules}/services/vscode-server.nix"
   ];
 
   networking.hostName = hostname;
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -13,7 +13,7 @@
       colorScheme = "houseki";
     })
 
-    "${nhModules}/common"
+    "${nhModules}/common.nix"
   ];
 
   programs = {
