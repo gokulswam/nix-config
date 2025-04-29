@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  userConfig,
   ...
 }: {
   programs.gh = {
@@ -24,8 +25,8 @@
 
   programs.git = {
     enable = true;
-    userName = "Gokul Swami";
-    userEmail = "gokulswamilive@gmail.com";
+    userName = "${userConfig.name}";
+    userEmail = "${userConfig.email}";
 
     extraConfig.core.editor = "nvim";
   };

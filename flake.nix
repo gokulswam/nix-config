@@ -8,9 +8,47 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+
+    users = {
+      gokulswam = {
+        email = "gokulswamilive@gmail.com";
+        fullName = "Gokul Swami";
+        name = "gokulswam";
+      };
+    };
+
     forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
     ];
+
+    # Function for NixOS system configuration
+    mkNixosConfiguration = hostname: username:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+          nixosModules = "${self}/modules/nixos";
+        };
+
+        modules = [
+          ./hosts/${hostname}
+          home.nixosModules.home-manager
+
+          {
+            home-manager = {
+              backupFileExtension = "hm-back";
+
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                userConfig = users.${username};
+                nhModules = "${self}/modules/home-manager";
+              };
+
+              users.${username}.imports = [(./. + "/home-manager/${username}/${hostname}/home.nix")];
+            };
+          }
+        ];
+      };
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
@@ -31,50 +69,10 @@
 
     overlays = import ./overlays {inherit inputs;};
 
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
-
-    # NixOS configuration entrypoint
-
     nixosConfigurations = {
-      framework = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/framework/configuration.nix
-          home.nixosModules.home-manager
-
-          {
-            home-manager = {
-              backupFileExtension = "hm-back";
-              extraSpecialArgs = {inherit inputs outputs;};
-              users.gokulswam.imports = [(./. + "/home-manager/gokulswam@framework/home.nix")];
-            };
-          }
-        ];
-      };
-
-      homelab = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/homelab/configuration.nix
-        ];
-      };
-
-      nixos-wsl = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/nixos-wsl/configuration.nix
-          home.nixosModules.home-manager
-
-          {
-            home-manager = {
-              backupFileExtension = "hm-back";
-              extraSpecialArgs = {inherit inputs outputs;};
-              users.gokulswam.imports = [(./. + "/home-manager/gokulswam@nixos-wsl/home.nix")];
-            };
-          }
-        ];
-      };
+      framework = mkNixosConfiguration "framework" "gokulswam";
+      homelab = mkNixosConfiguration "homelab" "gokulswam";
+      nixos-wsl = mkNixosConfiguration "nixos-wsl" "gokulswam";
     };
   };
 

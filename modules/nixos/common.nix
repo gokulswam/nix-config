@@ -1,7 +1,9 @@
 {
   inputs,
+  outputs,
   config,
   lib,
+  userConfig,
   pkgs,
   ...
 }: {
@@ -71,12 +73,21 @@
         "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
         "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       ];
-
-      trusted-users = [
-        "gokulswam"
-      ];
     };
   };
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+
+    overlays = [
+      outputs.overlays.modifications
+      outputs.overlays.additions
+    ];
+  };
+
+  networking.networkmanager.enable = true;
 
   programs = {
     bash = {
@@ -108,6 +119,11 @@
 
   security.rtkit.enable = true;
 
+  services = {
+    devmon.enable = true;
+    printing.enable = true;
+  };
+
   time = {
     hardwareClockInLocalTime = true;
     timeZone = "America/Los_Angeles";
@@ -117,10 +133,10 @@
     mutableUsers = true;
     defaultUserShell = pkgs.zsh;
 
-    users.gokulswam = {
-      description = "gokulswam";
+    users.${userConfig.name} = {
+      description = userConfig.fullName;
       isNormalUser = true;
-      home = "/home/gokulswam";
+      home = "/home/${userConfig.name}";
 
       extraGroups = ["wheel" "networkmanager" "sudo" "video" "audio" "libvirtd"];
     };

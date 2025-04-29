@@ -19,7 +19,7 @@
       rm = "${pkgs.trash-cli}/bin/trash-put";
     };
 
-    initExtra = ''
+    initContent = ''
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
 
